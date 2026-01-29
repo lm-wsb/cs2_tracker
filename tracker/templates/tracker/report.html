@@ -1,0 +1,18 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+    <h1>📊 Raport Analityczny LLM</h1>
+    <div style="
+    background-color: #f8f9fa; 
+    border: 1px solid #dee2e6; 
+    padding: 20px; 
+    margin: 20px 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    white-space: normal;
+    line-height: 1.6;
+    ">
+        {{ report }}
+    </div>
+    <p><a href="{% url 'tracker:dashboard' %}">Wróć do Dashboardu</a></p>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+    <h1>Witaj na Dashboardzie Trackera CS2!</h1>
+    {% if last_session %}
+        <h2>Ostatnia Sesja ({{ last_session.date_fetched|date:"Y-m-d H:i" }}):</h2>
+        <ul>
+            <li>Kills: {{ last_session.total_kills }}</li>
+            <li>Deaths: {{ last_session.total_deaths }}</li>
+            <li>**K/D Ratio: {{ last_session.kd_ratio }}**</li>
+            <li>Headshot %: {{ last_session.headshot_percentage }}%</li>
+        </ul>
+    {% endif %}
+    <p>
+        <a href="{% url 'tracker:update_stats' %}">Aktualizuj statystyki</a>
+        | 
+        <a href="{% url 'tracker:generate_report' %}">**Generuj Raport LLM**</a> 
+    </p>
+    <hr>
+
+    {% if kd_data|length > 0 %}
+        <h2>📉 Historyczny Progres K/D Ratio ({{ kd_data|length }} pomiary)</h2>
+        <div>
+            <canvas id="kdRatioChart"></canvas>
+        </div>
+    {% else %}
+        <p>Brak danych historycznych do wyświetlenia. Użyj przycisku "Aktualizuj statystyki", aby zapisać pierwszą sesję.</p>
+    {% endif %}
+{% endblock %}
+{% block extra_js %}
+    {% if kd_data|length > 0 %}
+    
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+        <script>
+            const labels = {{ kd_labels|safe }}; // Daty
+            const data = {{ kd_data }}; // Wartości K/D
+            // Konfiguracja wykresu
+            const chartData = {
+              labels: labels,
+              datasets: [{
+                label: 'K/D Ratio',
+                data: data,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+              }]
+            };
+            const config = {
+              type: 'line',
+              data: chartData,
+              options: {
+                responsive: true,
+                scales: {
+                  y: {
+                    beginAtZero: false, 
+                    title: {
+                        display: true,
+                        text: 'K/D Ratio'
+                    }
+                  }
+                }
+              }
+            };
+            // Tworzenie wykresu
+            new Chart(
+              document.getElementById('kdRatioChart'),
+              config
+            );
+        </script>
+    {% endif %}
+{% endblock %}
