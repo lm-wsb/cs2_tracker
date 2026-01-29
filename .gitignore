@@ -1,0 +1,36 @@
+# --- Wirtualne środowiska ---
+venv/
+env/
+.venv/
+.env
+
+# --- Pliki tymczasowe Pythona (Cache) ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- Dystrybucja i instalacja ---
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# --- Pliki konfiguracyjne IDE ---
+.idea/
+.vscode/
+*.swp
+
+# --- Bazy danych ---
+*.sqlite3
+*.db
