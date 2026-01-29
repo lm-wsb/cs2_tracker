@@ -1,6 +1,6 @@
 Aby włączyc aplikacje należy:
 1. Wejść w plik .env i wpisać tam swoje klucze dostępu do API
-2. Wpisać w terminalu skrypt odpalający środowisko wirtualne: .\venv\Scripts\activate
+2. Wpisać komendy python -m venv venv, potem .\venv\Scripts\activate, następnie pip install -r requirements.txt
 3. Wpisać w terminalu komendę python manage.py createsuperuser i utworzyć superusera (zapamiętać login i hasło, który się wpisało)
 4. Wpisac w terminalu komendę - python manage.py runserver
 5. Przejść w przeglądarce na stronę http://127.0.0.1:8000/admin
